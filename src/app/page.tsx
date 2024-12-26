@@ -1,101 +1,218 @@
-import Image from "next/image";
+"use client";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+
+interface BattleData {
+  battleNumer: number;
+  lookmaxxerAName: string;
+  lookmaxxerAImageUrl: string;
+  votesForA: number;
+  lookmaxxerBName: string;
+  lookmaxxerBImageUrl: string;
+  votesForB: number;
+}
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [leftVotes, setLeftVotes] = useState(0);
+  const [rightVotes, setRightVotes] = useState(0);
+  const [showVoteButton, setShowVoteButton] = useState(true);
+  const [showVotes, setShowVotes] = useState(false);
+  const [mogData, setMogData] = useState<BattleData[]>([]);
+  const [previousBattles, setPreviousBattles] = useState<BattleData[]>([]);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+  const buttonClickLeft = async () => {
+    if (mogData.length === 0) return;
+    try {
+      setLeftVotes((prev) => prev + 1);
+      await axios.post(`/api/vote?battleNumer=${mogData[0].battleNumer}&voteType=A`);
+      Cookies.set(`voted_${mogData[0].battleNumer}`, "true", { expires: 7 });
+      setShowVotes(true);
+      setShowVoteButton(false);
+    } catch (error) {
+      console.error("Error voting for A:", error);
+    }
+  };
+
+  const buttonClickRight = async () => {
+    if (mogData.length === 0) return;
+    try {
+      setRightVotes((prev) => prev + 1);
+      await axios.post(`/api/vote?battleNumer=${mogData[0].battleNumer}&voteType=B`);
+      Cookies.set(`voted_${mogData[0].battleNumer}`, "true", { expires: 7 });
+      setShowVotes(true);
+      setShowVoteButton(false);
+    } catch (error) {
+      console.error("Error voting for B:", error);
+    }
+  };
+
+  useEffect(() => {
+    populateData();
+    fetchData();
+  }, []);
+
+  const populateData = async () => {
+    try {
+      await axios.post("/api/populate");
+    } catch (error) {
+      console.error("Can't populate data:", error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("/api/get");
+      const data: BattleData[] = await response.json();
+      sortData(data);
+    } catch (error) {
+      console.error("Can't fetch data:", error);
+    }
+  };
+
+  const sortData = (data: BattleData[]) => {
+    const currentDate = Date.now();
+    const savedDate = new Date("2024-12-25T12:00:00");
+    const differenceInMilliseconds = currentDate - savedDate.getTime();
+    const differenceInDays =
+      Math.abs(Math.ceil(differenceInMilliseconds / (1000 * 60 * 60 * 24))) + 2;
+
+    const newData = data.filter((item) => item.battleNumer === differenceInDays);
+    setMogData(newData);
+
+    const hasVoted = Cookies.get(`voted_${differenceInDays}`);
+    if (hasVoted) {
+      setShowVoteButton(false);
+      setShowVotes(true);
+    }
+
+    const pastBattles = data.filter((item) => item.battleNumer < differenceInDays);
+    setPreviousBattles(pastBattles);
+  };
+
+  return (
+    <div className="flex flex-col items-center min-h-screen bg-black text-white">
+      <h1 className="text-4xl font-bold mt-10 mb-2 text-white">MogBattles</h1>
+      <h1 className="text-2xl italic mt-4 text-gray-500 mb-4">Who mogs?</h1>
+      <div className="w-1/2 bg-gray-800 h-px my-4"></div>
+      <h1 className="text-2xl text-gray-500 my-6">
+        Day {mogData[0]?.battleNumer + 1 || "Loading..."} | Beta
+      </h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 w-full max-w-4xl px-4 my-4">
+        {/* Left Container */}
+        <div className="flex flex-col items-center bg-black border border-gray-800 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-white py-8">
+            {mogData.length > 0 ? (
+              mogData[0].lookmaxxerAName
+            ) : (
+              <div className="w-40 h-6 bg-gray-700 rounded animate-pulse"></div>
+            )}
+          </h2>
+          {mogData.length > 0 && (
+            <img
+              src={mogData[0].lookmaxxerAImageUrl}
+              alt={mogData[0].lookmaxxerAName}
+              className="w-40 h-40 object-cover rounded-full mb-4"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          )}
+          {showVotes && (
+            <p className="text-4xl font-semibold mt-4 text-gray-300 mb-8">
+              Votes: <span className="text-green-400">{mogData[0]?.votesForA}</span>
+            </p>
+          )}
+          {showVoteButton && (
+            <div className="w-full">
+              <div className="w-full bg-gray-800 h-px mt-8"></div>
+              <button
+                onClick={buttonClickLeft}
+                className="bg-black text-white py-4 rounded-lg transition-all duration-200 ease-in-out text-2xl w-full border border-gray-900 hover:bg-gray-900"
+              >
+                Vote
+              </button>
+            </div>
+          )}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        {/* Right Container */}
+        <div className="flex flex-col items-center bg-black border border-gray-800 rounded-lg shadow-lg">
+          <h2 className="text-2xl font-semibold mb-4 text-white py-8">
+            {mogData.length > 0 ? (
+              mogData[0].lookmaxxerBName
+            ) : (
+              <div className="w-40 h-6 bg-gray-700 rounded animate-pulse"></div>
+            )}
+          </h2>
+          {mogData.length > 0 && (
+            <img
+              src={mogData[0].lookmaxxerBImageUrl}
+              alt={mogData[0].lookmaxxerBName}
+              className="w-40 h-40 object-cover rounded-full mb-4"
+            />
+          )}
+          {showVotes && (
+            <p className="text-4xl font-semibold mt-4 text-gray-300 mb-8">
+              Votes: <span className="text-green-400">{mogData[0]?.votesForB}</span>
+            </p>
+          )}
+          {showVoteButton && (
+            <div className="w-full">
+              <div className="w-full bg-gray-800 h-px mt-8"></div>
+              <button
+                onClick={buttonClickRight}
+                className="bg-black text-white py-4 rounded-lg transition-all duration-200 ease-in-out text-2xl w-full border border-gray-900 hover:bg-gray-900"
+              >
+                Vote
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Previous Results Section */}
+      {previousBattles.length > 0 && (
+        <div className="w-full max-w-xl px-4 mt-10">
+          <h2 className="text-2xl font-semibold mb-8 text-white text-center">Previous Results</h2>
+          <div className="flex flex-col items-center">
+            {previousBattles.map((battle) => (
+              <div
+                key={battle.battleNumer}
+                className="bg-black p-12 mb-4 w-full max-w-3xl border border-gray-800 rounded-lg shadow-lg"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex flex-col items-center">
+                    <img
+                      src={battle.lookmaxxerAImageUrl}
+                      alt={battle.lookmaxxerAName}
+                      className="w-20 h-20 object-cover rounded-full mb-2"
+                    />
+                    <p className="text-xl font-semibold text-white">
+                      {battle.lookmaxxerAName}
+                    </p>
+                    <p className="text-lg text-gray-300 mt-2">
+                      Votes: {battle.votesForA}
+                    </p>
+                  </div>
+                  <div className="flex justify-center items-center">
+                    <div className="w-px h-32 bg-gray-800"></div>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <img
+                      src={battle.lookmaxxerBImageUrl}
+                      alt={battle.lookmaxxerBName}
+                      className="w-20 h-20 object-cover rounded-full mb-2"
+                    />
+                    <p className="text-xl font-semibold text-white">
+                      {battle.lookmaxxerBName}
+                    </p>
+                    <p className="text-lg text-gray-300 mt-2">
+                      Votes: {battle.votesForB}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

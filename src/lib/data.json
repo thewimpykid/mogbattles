@@ -1,0 +1,101 @@
+[
+  {
+    "id": 32,
+    "lookmaxxerAName": "Leonardo DiCaprio",
+    "lookmaxxerAImageUrl": "https://i.redd.it/is-it-me-or-did-capcom-use-a-young-leonardo-dicaprio-as-v0-j66ops00gxsa1.jpg?width=1080&format=pjpg&auto=webp&s=e36000501a6f15c1d500d2368d1f7d33c892e7db",
+    "lookmaxxerBName": "Brad Pitt",
+    "lookmaxxerBImageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Brad_Pitt-69858.jpg/1200px-Brad_Pitt-69858.jpg",
+    "votesForA": 120,
+    "votesForB": 130,
+    "createdAt": "2024-12-25T16:29:43.766Z",
+    "battleNumer": 0
+  },
+  {
+    "id": 13,
+    "lookmaxxerAName": "Noah Beck",
+    "lookmaxxerAImageUrl": "https://ntvb.tmsimg.com/assets/assets/1507047_v9_aa.jpg",
+    "lookmaxxerBName": "Kendall Jenner",
+    "lookmaxxerBImageUrl": "https://assets.vogue.com/photos/656dfe340fb58314eb908909/1:1/w_2656,h_2656,c_limit/1829952267",
+    "votesForA": 526,
+    "votesForB": 558,
+    "createdAt": "2024-12-25T16:26:10.938Z",
+    "battleNumer": 2
+  },
+  {
+    "id": 192,
+    "lookmaxxerAName": "Timothée Chalamet",
+    "lookmaxxerAImageUrl": "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/535891_v9_bc.jpg",
+    "lookmaxxerBName": "Harry Styles",
+    "lookmaxxerBImageUrl": "https://www.hshairclinic.co.uk/wp-content/uploads/2024/08/Harry-Styles-2022-Cover-Image-Option.webp",
+    "votesForA": 578,
+    "votesForB": 523,
+    "createdAt": "2024-12-26T03:36:21.209Z",
+    "battleNumer": 1
+  },
+  {
+    "id": 193,
+    "lookmaxxerAName": "James Charles",
+    "lookmaxxerAImageUrl": "https://www.hshairclinic.co.uk/wp-content/uploads/2024/08/Harry-Styles-2022-Cover-Image-Option.webp",
+    "lookmaxxerBName": "David Beckham",
+    "lookmaxxerBImageUrl": "https://img.a.transfermarkt.technology/portrait/big/3139-1459504284.jpg?lm=1",
+    "votesForA": 591,
+    "votesForB": 529,
+    "createdAt": "2024-12-26T03:36:21.298Z",
+    "battleNumer": 4
+  },
+  {
+    "id": 194,
+    "lookmaxxerAName": "Shawn Mendes",
+    "lookmaxxerAImageUrl": "https://hips.hearstapps.com/hmg-prod/images/canadian-pop-musician-shawn-mendes-photographed-backstage-before-a-live-performance-at-the-hammersmith-apollo-in-london-on-may-5-2016-photo-by-will-ireland_total-guitar-magazine-via-getty-images-500.jpg?crop=1xw:0.75xh;center,top&resize=1200:*",
+    "lookmaxxerBName": "Cole Sprouse",
+    "lookmaxxerBImageUrl": "https://hips.hearstapps.com/hmg-prod/images/cole-sprouse-attends-the-2018-cw-network-upfront-at-the-london-hotel-on-may-17-2018-in-new-york-city-photo-by-dia-dipasupil_getty-images-square.jpg?crop=1xw:1.0xh;center,top&resize=640:*",
+    "votesForA": 561,
+    "votesForB": 579,
+    "createdAt": "2024-12-26T03:36:21.384Z",
+    "battleNumer": 5
+  },
+  {
+    "id": 195,
+    "lookmaxxerAName": "Jaden Smith",
+    "lookmaxxerAImageUrl": "https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/01/08/12/jadensmith.jpg",
+    "lookmaxxerBName": "Tyler Posey",
+    "lookmaxxerBImageUrl": "https://static.wikia.nocookie.net/teen-wolf-pack/images/a/ab/Tyler_posey.jpg/revision/latest?cb=20160702115218",
+    "votesForA": 523,
+    "votesForB": 551,
+    "createdAt": "2024-12-26T03:36:21.470Z",
+    "battleNumer": 6
+  },
+  {
+    "id": 196,
+    "lookmaxxerAName": "Loren Gray",
+    "lookmaxxerAImageUrl": "https://m.media-amazon.com/images/M/MV5BNTk3YzFiODUtYTVhMi00YTExLWEyMjEtZWYyNzczMzJlZjA3XkEyXkFqcGc@._V1_.jpg",
+    "lookmaxxerBName": "Cameron Dallas",
+    "lookmaxxerBImageUrl": "https://imageio.forbes.com/specials-images/imageserve/5942ac124bbe6f1b730ba06e/0x0.jpg?format=jpg&crop=561,561,x121,y1,safe&height=416&width=416&fit=bounds",
+    "votesForA": 569,
+    "votesForB": 556,
+    "createdAt": "2024-12-26T03:36:21.557Z",
+    "battleNumer": 7
+  },
+  {
+    "id": 197,
+    "lookmaxxerAName": "Kris Wu",
+    "lookmaxxerAImageUrl": "https://cdn-images.dzcdn.net/images/artist/4b4d5adfd82aca4cb56d24bea7d54f25/1900x1900-000000-80-0-0.jpg",
+    "lookmaxxerBName": "Jackson Wang",
+    "lookmaxxerBImageUrl": "https://i.mydramalist.com/0nYx4_5c.jpg",
+    "votesForA": 597,
+    "votesForB": 580,
+    "createdAt": "2024-12-26T03:36:21.644Z",
+    "battleNumer": 8
+  },
+  {
+    "id": 1,
+    "lookmaxxerAName": "Zac Efron",
+    "lookmaxxerAImageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZiHKrjfoCQBrx5t9GAdE-U3RDcPBimJnEIA&s",
+    "lookmaxxerBName": "Chris Hemsworth",
+    "lookmaxxerBImageUrl": "https://cdn.britannica.com/92/215392-050-96A4BC1D/Australian-actor-Chris-Hemsworth-2019.jpg",
+    "votesForA": 541,
+    "votesForB": 575,
+    "createdAt": "2024-12-25T13:56:00.715Z",
+    "battleNumer": 3
+  }
+]
