@@ -22,14 +22,14 @@
     "battleNumer": 2
   },
   {
-    "id": 192,
+    "id": 1,
     "lookmaxxerAName": "Timothée Chalamet",
     "lookmaxxerAImageUrl": "https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/535891_v9_bc.jpg",
     "lookmaxxerBName": "Harry Styles",
     "lookmaxxerBImageUrl": "https://www.hshairclinic.co.uk/wp-content/uploads/2024/08/Harry-Styles-2022-Cover-Image-Option.webp",
     "votesForA": 578,
     "votesForB": 523,
-    "createdAt": "2024-12-26T03:36:21.209Z",
+    "createdAt": "2024-12-25T13:56:00.715Z",
     "battleNumer": 1
   },
   {
@@ -88,14 +88,14 @@
     "battleNumer": 8
   },
   {
-    "id": 1,
+    "id": 192,
     "lookmaxxerAName": "Zac Efron",
     "lookmaxxerAImageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZiHKrjfoCQBrx5t9GAdE-U3RDcPBimJnEIA&s",
     "lookmaxxerBName": "Chris Hemsworth",
     "lookmaxxerBImageUrl": "https://cdn.britannica.com/92/215392-050-96A4BC1D/Australian-actor-Chris-Hemsworth-2019.jpg",
     "votesForA": 541,
-    "votesForB": 575,
-    "createdAt": "2024-12-25T13:56:00.715Z",
+    "votesForB": 576,
+    "createdAt": "2024-12-26T03:36:21.209Z",
     "battleNumer": 3
   }
 ]
